@@ -18,15 +18,16 @@
         {
             "label": "CMake Build",
             "type": "shell",
-            "command": "cmd",
+            "command": "powershell",
             "args": [
-                "/C",
-                "cmake --build build --target all && arm-none-eabi-objcopy -Oihex build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.hex && arm-none-eabi-objcopy -Obinary build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.bin"
+                "-Command",
+                "if (-not (Test-Path -Path 'build/{workspaceFolderBasename}.elf')) { cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -GNinja -Bbuild }; cmake --build build --target all; arm-none-eabi-objcopy -Oihex build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.hex; arm-none-eabi-objcopy -Obinary build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.bin"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Flash",
@@ -44,6 +45,26 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            }
+        },
+        {
+            "label": "Delete build",
+            "type": "shell",
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-Command",
+                    "if (Test-Path -Path 'build') { Remove-Item -Path 'build' -Recurse -Force; if ($?) { Write-Host 'Delete build success' }} else { Write-Host 'build 目录不存在，无需删除。' }"
+                ]
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             }
         }
     ]

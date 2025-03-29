@@ -35,5 +35,10 @@
             "task": "Flash",
             "tooltip": "Run Flash Task"
         },
+        {
+            "label": "$(trash) Delete",
+            "task": "Delete build",
+            "tooltip": "Delete build dirctory"
+        },
     ]
 }
