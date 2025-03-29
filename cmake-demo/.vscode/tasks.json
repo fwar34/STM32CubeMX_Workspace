@@ -4,11 +4,12 @@
         {
             "label": "CMake Configure",
             "type": "shell",
-            "command": "cmake",
+            "command": "powershell",
             "args": [
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
-                "-GNinja",
-                "-Bbuild"
+                "-File",
+                ".\\build-tasks.ps1",
+                "-task",
+                "CMakeConfigure"
             ],
             "group": {
                 "kind": "build",
@@ -28,8 +29,10 @@
             "type": "shell",
             "command": "powershell",
             "args": [
-                "-Command",
-                "if (-not (Test-Path -Path 'build/{workspaceFolderBasename}.elf')) { cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -GNinja -Bbuild }; cmake --build build --target all; arm-none-eabi-objcopy -Oihex build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.hex; arm-none-eabi-objcopy -Obinary build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.bin"
+                "-File",
+                ".\\build-tasks.ps1",
+                "-task",
+                "CMakeBuild"
             ],
             "group": {
                 "kind": "build",
@@ -50,8 +53,10 @@
             "type": "shell",
             "command": "powershell",
             "args": [
-                "-Command",
-                "if (-not (Test-Path -Path \"build/${workspaceFolderBasename}.elf\")) { cmake --build build --target all; arm-none-eabi-objcopy -Oihex build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.hex; arm-none-eabi-objcopy -Obinary build/${workspaceFolderBasename}.elf build/${workspaceFolderBasename}.bin } else { openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c \"program ./build/${workspaceFolderBasename}.elf verify reset exit\" }"
+                "-File",
+                ".\\build-tasks.ps1",
+                "-task",
+                "Flash"
             ],
             "group": {
                 "kind": "build",
@@ -59,43 +64,16 @@
             },
             "problemMatcher": []
         },
-        // {
-        //     "label": "Flash",
-        //     "type": "shell",
-        //     "command": "openocd",
-        //     "args": [
-        //         "-f",
-        //         // "interface/cmsis-dap.cfg",
-        //         "interface/stlink.cfg",
-        //         "-f",
-        //         "target/stm32f1x.cfg",
-        //         "-c",
-        //         "program ./build/${workspaceFolderBasename}.elf verify reset exit"
-        //     ],
-        //     "group": {
-        //         "kind": "build",
-        //         "isDefault": true
-        //     },
-        //     "problemMatcher": [],
-        //     "presentation": {
-        //         "echo": false,
-        //         "reveal": "always",
-        //         "focus": false,
-        //         "panel": "shared",
-        //         "showReuseMessage": true,
-        //         "clear": false
-        //     }
-        // },
         {
             "label": "Delete build",
             "type": "shell",
-            "windows": {
-                "command": "powershell",
-                "args": [
-                    "-Command",
-                    "if (Test-Path -Path 'build') { Remove-Item -Path 'build' -Recurse -Force; if ($?) { Write-Host 'Delete build success' }} else { Write-Host 'build 目录不存在，无需删除。' }"
-                ]
-            },
+            "command": "powershell",
+            "args": [
+                "-File",
+                ".\\build-tasks.ps1",
+                "-task",
+                "DeleteBuild"
+            ],
             "problemMatcher": [],
             "presentation": {
                 "echo": false,
