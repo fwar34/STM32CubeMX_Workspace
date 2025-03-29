@@ -42,6 +42,7 @@ void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void send_data_safely(char *data, uint16_t size);
+void UartPrintf(const char *fmt, ...);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

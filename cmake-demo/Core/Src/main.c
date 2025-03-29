@@ -89,10 +89,9 @@ void ProcessDth11()
 
   Dht11Result result;
   GetDht11Result(&result);
-  static char message[100];
-  sprintf(message, "humidity: %.2f, temperature: %.2f\n",
-          result.humidity, result.temperature);
-  send_data_safely(message, strlen(message));
+  // static char message[100];
+  UartPrintf("humidity: %.2f, temperature: %.2f\n", result.humidity, result.temperature);
+  // send_data_safely(message, strlen(message));
 }
 /* USER CODE END 0 */
 
@@ -149,6 +148,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    // printf("nihaode %.02f", 3.141);
   }
   /* USER CODE END 3 */
 }

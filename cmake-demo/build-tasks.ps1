@@ -3,6 +3,9 @@
 )
 
 $workspaceFolderBasename = (Get-Item -Path ".").Name
+$elfFile = "$workspaceFolderBasename.elf"
+$hexFile = "$workspaceFolderBasename.hex"
+$binFile = "$workspaceFolderBasename.bin"
 
 function CMakeConfigure {
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -GNinja -Bbuild
@@ -10,7 +13,7 @@ function CMakeConfigure {
 
 function CMakeBuild {
     $flag = $true
-    if (-not (Test-Path -Path "build/$workspaceFolderBasename.elf")) {
+    if (-not (Test-Path -Path "build/$elfFile")) {
         CMakeConfigure
         if (!$?) {
             $flag = $false
@@ -21,9 +24,9 @@ function CMakeBuild {
     if ($flag) {
         cmake --build build --target all
         if ($?) {
-            arm-none-eabi-objcopy -Oihex "build/$workspaceFolderBasename.elf" "build/$workspaceFolderBasename.hex"
+            arm-none-eabi-objcopy -Oihex "build/$elfFile" "build/$hexFile"
             if ($?) {
-                arm-none-eabi-objcopy -Obinary "build/$workspaceFolderBasename.elf" "build/$workspaceFolderBasename.bin"
+                arm-none-eabi-objcopy -Obinary "build/$elfFile" "build/$binFile"
             }
         }
     }
@@ -31,14 +34,14 @@ function CMakeBuild {
 
 function Flash {
     $flag = $true
-    if (-not (Test-Path -Path "build/$workspaceFolderBasename.elf")) {
+    if (-not (Test-Path -Path "build/$elfFile")) {
         CMakeBuild
         if (!$?) {
             $flag = $false
         }
     }
     if ($flag) {
-        openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "program ./build/$workspaceFolderBasename.elf verify reset exit"
+        openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "program ./build/$hexFile verify reset exit"
     }
 }
 

@@ -1,7 +1,9 @@
 {
     "files.associations": {
         "usart.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "varargs.h": "c",
+        "stdarg.h": "c"
     },
     "cmake.options.statusBarVisibility": "hidden",
     "cmake.options.advanced": {

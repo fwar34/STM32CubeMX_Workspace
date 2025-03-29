@@ -28,12 +28,9 @@ void ProcessKey()
 	do {
 		GetKeyState(&keyInfo, &remainCount, &ret);
 		if (ret != 0) {
-			static char message[300];
-			sprintf(message, "read %s keyState(%s,%d) encodeCounter(%ld) remain count(%d)\n",
+			UartPrintf("read %s keyState(%s,%d) encodeCounter(%ld) remain count(%d)\n",
 					GetKeyName(keyInfo.keyIndex), GetKeyEventName(keyInfo.keyState), keyInfo.keyState,
 					keyInfo.encodeCounter, remainCount);
-
-			send_data_safely(message, strlen(message));
 
 			if (keyInfo.keyIndex == EC11_KEY) {
 				switch (keyInfo.keyState) {
@@ -47,9 +44,7 @@ void ProcessKey()
 					// HAL_GPIO_TogglePin(testIO_GPIO_Port, testIO_Pin);
 					// delay_us(20);
 					// HAL_GPIO_TogglePin(testIO_GPIO_Port, testIO_Pin);
-					static char msg[100];
-					sprintf(msg, "%s\n", "testxxxx");
-					send_data_safely(msg, strlen(msg));
+					UartPrintf("%s\n", "testxxxx");
 					ImageMoveToggle();
 					break;
 				}

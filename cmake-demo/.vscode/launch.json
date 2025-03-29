@@ -15,7 +15,12 @@
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f1x.cfg"
-            ]
+            ],
+            "svdPath": "STM32F103.svd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
         }
     ]
 }

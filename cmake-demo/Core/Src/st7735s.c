@@ -36,8 +36,7 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 	if (hspi == &hspi2) {
 		LCD_END();
 		spiTxComplete = 1;
-		static char *message = "spi2 dma error";
-		send_data_safely(message, strlen(message));
+		UartPrintf("spi2 dma error");
 	}
 }
 

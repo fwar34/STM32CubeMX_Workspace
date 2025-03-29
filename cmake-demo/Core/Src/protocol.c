@@ -83,10 +83,8 @@ MessageHeader *GetMessage(ProtocolDecoder *protocolDecoder, uint16_t *remainCoun
 //uint16_t dstPort;
 void DumpMessage(MessageHeader *messageHeader)
 {
-	static char message[150];
- // 使用 PRIx32 格式化 uint32_t 类型的参数
-	sprintf(message, "version: 0x%04x, bodyLength: 0x%" PRIx32 ", srcApp: 0x%" PRIx32 ", dstApp: 0x%" PRIx32 ", srcPort: 0x%04x, dstPort: 0x%04x\n",
+	// 使用 PRIx32 格式化 uint32_t 类型的参数
+	UartPrintf("version: 0x%04x, bodyLength: 0x%" PRIx32 ", srcApp: 0x%" PRIx32 ", dstApp: 0x%" PRIx32 ", srcPort: 0x%04x, dstPort: 0x%04x\n",
 			messageHeader->version, messageHeader->bodyLength, messageHeader->srcApp,
 			messageHeader->dstApp, messageHeader->srcPort, messageHeader->dstPort);
-	send_data_safely(message, strlen(message));
 }
