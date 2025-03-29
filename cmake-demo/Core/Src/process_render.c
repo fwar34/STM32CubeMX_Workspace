@@ -101,7 +101,7 @@ void ProcessRender()
 	LcdDrawData(IMG_DATA, xStart, 0, IMG_WIDTH, IMG_HEIGHT);
 //	LcdDrawData((uint8_t*)IMG_DATA, xStart, 0, IMG_WIDTH, IMG_HEIGHT);
 
-	if (xStart >= 0 && xStart < 80) {
+	if (xStart < 80) {
 		LcdDrawBlock(xStart + IMG_WIDTH, 0, LCD_WIDTH - xStart - IMG_WIDTH, LCD_HEIGHT, color);
 	}
 

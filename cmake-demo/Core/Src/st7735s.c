@@ -323,7 +323,9 @@ void LcdDrawRect(const Rect *rect, uint16_t color)
 
 void LcdDrawCircle(const Point *center, uint16_t radius, uint16_t color)
 {
-
+	UNUSED(center);
+	UNUSED(radius);
+	UNUSED(color);
 }
 
 //Display ch (char type) in (x, y) with back_color, front_color and front_size. font.h is essential.

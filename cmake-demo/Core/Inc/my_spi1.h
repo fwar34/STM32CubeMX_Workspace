@@ -8,6 +8,6 @@
 #ifndef INC_MY_SPI1_H_
 #define INC_MY_SPI1_H_
 
-
+void Test();
 
 #endif /* INC_MY_SPI1_H_ */

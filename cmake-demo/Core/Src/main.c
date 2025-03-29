@@ -31,7 +31,7 @@
 #include "protocol.h"
 #include "st7735s.h"
 #include "process_command.h"
-// #include "process_render.h"
+#include "process_render.h"
 #include "process_key.h"
 #include "timer3.h"
 #include <stdio.h>

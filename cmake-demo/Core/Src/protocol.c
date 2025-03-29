@@ -70,6 +70,8 @@ void Decode(ProtocolDecoder *protocolDecoder, ReceiveBuffer *receiveBuffer)
 
 MessageHeader *GetMessage(ProtocolDecoder *protocolDecoder, uint16_t *remainCount)
 {
+	UNUSED(protocolDecoder);
+	UNUSED(remainCount);
 	return NULL;
 }
 

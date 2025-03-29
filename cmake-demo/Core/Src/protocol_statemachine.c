@@ -21,6 +21,7 @@ static DecodeState currentState = DECODE_RECV_FILTER;  // 接收Header前先剔�
 
 void StateMachineReset(ProtocolDecoder *protocolDecoder)
 {
+	UNUSED(protocolDecoder);
 	currentState = DECODE_RECV_HEADER;
 }
 

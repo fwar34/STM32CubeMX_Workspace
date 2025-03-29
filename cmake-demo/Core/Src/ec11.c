@@ -319,7 +319,7 @@ static void Ec11TickProcess() {
 
 void Ec11StateMachineProcess()
 {
-	for (int i = 0; i < sizeof(ec11StateMachineTable) / sizeof(ec11StateMachineTable[0]); ++i) {
+	for (uint32_t i = 0; i < sizeof(ec11StateMachineTable) / sizeof(ec11StateMachineTable[0]); ++i) {
 		if (ec11StateMachineTable[i].currentState == ec11Encoder.ec11StateMachine.currentState &&
 			ec11StateMachineTable[i].currentStep == ec11Encoder.ec11StateMachine.currentStep) {
 			ec11StateMachineTable[i].callback();
