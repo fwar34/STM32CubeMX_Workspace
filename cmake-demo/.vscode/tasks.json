@@ -62,7 +62,15 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
         },
         {
             "label": "Delete build",
@@ -74,6 +82,10 @@
                 "-task",
                 "DeleteBuild"
             ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": [],
             "presentation": {
                 "echo": false,
