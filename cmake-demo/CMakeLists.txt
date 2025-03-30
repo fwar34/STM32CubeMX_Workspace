@@ -52,6 +52,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/ec11.c
     Core/Src/load_image.c
     Core/Src/st7735s.c
+    Core/Src/log.c
     Core/Src/process_command.c
     Core/Src/process_key.c
     Core/Src/process_render.c

@@ -1,22 +1,24 @@
 #include "log.h"
 #include "usart.h"
+#include <stdarg.h>
 #include <stdio.h>
 
 void Log(uint8_t level, const char *fmt, ...)
 {
-    switch (level)
-    {
+    static char logBuffer[256];
+    const char *logStr = "";
+    switch (level) {
     case LOG_DEBUG:
-        UartPrintf("[DEBUG] ");
+        logStr = "[DEBUG] ";
         break;
     case LOG_INFO:
-        UartPrintf("[INFO] ");
+        logStr = "[INFO] ";
         break;
     case LOG_WARNING:
-        UartPrintf("[WARNING] ");
+        logStr = "[WARNING] ";
         break;
     case LOG_ERROR:
-        UartPrintf("[ERROR] ");
+        logStr = "[ERROR] ";
         break;
     default:
         break;
@@ -24,6 +26,12 @@ void Log(uint8_t level, const char *fmt, ...)
 
     va_list args;
     va_start(args, fmt);
-    UartPrintf(fmt, args);
+    int32_t prefixLen = snprintf(logBuffer, sizeof(logBuffer), "%s", logStr);
+    int32_t msgLen = vsnprintf(logBuffer + prefixLen,
+                               sizeof(logBuffer) - prefixLen, fmt, args);
     va_end(args);
+
+    if (prefixLen + msgLen > 0) {
+        UartPrint(logBuffer, prefixLen + msgLen);
+    }
 }

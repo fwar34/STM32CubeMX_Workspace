@@ -10,7 +10,7 @@ $binFile = "$workspaceFolderBasename.bin"
 function Assert-ToolExists {
     param($toolName)
     if (-not (Get-Command $toolName -ErrorAction SilentlyContinue)) {
-        Write-Error "$toolName not found in PATH!" -ForegroundColor Red
+        Write-Host "$toolName not found in PATH!" -ForegroundColor Red
         exit 1
     }
 }
@@ -19,7 +19,7 @@ function CMakeConfigure {
     Assert-ToolExists "cmake"
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -GNinja -Bbuild
     if (-not $?) {
-        Write-Error "CMake配置失败！检查CMakeLists.txt" -ForegroundColor Red
+        Write-Host "CMake配置失败！检查CMakeLists.txt" -ForegroundColor Red
         exit 1
     }
     Write-Host "CMake configure success" -ForegroundColor Green
@@ -48,12 +48,12 @@ function CMakeBuild {
         if ($?) {
             arm-none-eabi-objcopy -Oihex "build/$elfFile" "build/$hexFile"
             if (-not $?) {
-                Write-Error "生成HEX文件失败!" -ForegroundColor Red
+                Write-Host "生成HEX文件失败!" -ForegroundColor Red
                 return $false
             }
             arm-none-eabi-objcopy -Obinary "build/$elfFile" "build/$binFile"
             if (-not $?) {
-                Write-Error "生成BIN文件失败!" -ForegroundColor Red
+                Write-Host "生成BIN文件失败!" -ForegroundColor Red
                 return $false
             }
 
@@ -71,13 +71,13 @@ function Flash {
     
     if (-not (Test-Path -Path "build/$elfFile")) {
         if (-not (CMakeBuild)) {
-            Write-Error "编译失败，无法烧录！" -ForegroundColor Red
+            Write-Host "编译失败，无法烧录！" -ForegroundColor Red
             return
         }
     }
     openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "program ./build/$hexFile verify reset exit"
     if (-not $?) {
-        Write-Error "烧录失败！检查硬件连接。" -ForegroundColor Red
+        Write-Host "烧录失败！检查硬件连接，是否硬件正在使用或者调试。" -ForegroundColor Red
         return
     }
     Write-Host "CMake build success" -ForegroundColor Green

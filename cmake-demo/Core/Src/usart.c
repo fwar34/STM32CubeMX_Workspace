@@ -149,13 +149,18 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 
 void UartPrintf(const char *fmt, ...)
 {
-    static char message[200];
+    static char message[256];
     va_list args;
     va_start(args, fmt);
-    vsprintf(message, fmt, args);
+    vsnprintf(message, sizeof(message), fmt, args);
     HAL_UART_Transmit(&huart2, (uint8_t *)message, strlen(message),
                       HAL_MAX_DELAY);
     va_end(args);
+}
+
+void UartPrint(const char *msg, uint32_t msgLen)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t *)msg, msgLen, HAL_MAX_DELAY);
 }
 
 // 安全的发送函数

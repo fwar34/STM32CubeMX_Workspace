@@ -7,6 +7,7 @@
         "editor.suggest.insertMode": "replace",
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
     "files.associations": {
         "usart.h": "c",
         "main.h": "c",
@@ -35,14 +36,14 @@
     "VsCodeTaskButtons.showCounter": false,
     "VsCodeTaskButtons.tasks": [
         {
+            "label": "$(trash) Delete",
+            "task": "Delete build",
+            "tooltip": "Delete build dirctory"
+        },
+        {
             "label": "$(wrench) Configure",
             "task": "CMake Configure",
             "tooltip": "Run CMake Configure Task"
-        },
-        {
-            "label": "$(tools) Build",
-            "task": "CMake Build",
-            "tooltip": "Run CMake Build Task"
         },
         {
             "label": "$(chip) Flash",
@@ -50,9 +51,9 @@
             "tooltip": "Run Flash Task"
         },
         {
-            "label": "$(trash) Delete",
-            "task": "Delete build",
-            "tooltip": "Delete build dirctory"
+            "label": "$(tools) Build",
+            "task": "CMake Build",
+            "tooltip": "Run CMake Build Task"
         },
     ]
 }
