@@ -158,6 +158,7 @@ void UartPrintf(const char *fmt, ...)
     va_end(args);
 }
 
+// 通过串口发送
 void UartPrint(const char *msg, uint32_t msgLen)
 {
     HAL_UART_Transmit(&huart2, (uint8_t *)msg, msgLen, HAL_MAX_DELAY);
