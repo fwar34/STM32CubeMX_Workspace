@@ -1,9 +1,20 @@
 {
+    "[c]": {
+        "editor.formatOnSave": true,
+        "editor.wordBasedSuggestions": "off",
+        "editor.semanticHighlighting.enabled": true,
+        "editor.stickyScroll.defaultModel": "foldingProviderModel",
+        "editor.suggest.insertMode": "replace",
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
     "files.associations": {
         "usart.h": "c",
         "main.h": "c",
         "varargs.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "w25q64_commands.h": "c",
+        "error_define.h": "c",
+        "w25q64.h": "c"
     },
     "cmake.options.statusBarVisibility": "hidden",
     "cmake.options.advanced": {
@@ -20,6 +31,7 @@
             "inheritDefault": "visible"
         }
     },
+    // 需要Task Buttons插件: 作者spencerwmiles
     "VsCodeTaskButtons.showCounter": false,
     "VsCodeTaskButtons.tasks": [
         {

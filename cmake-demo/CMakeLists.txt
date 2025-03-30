@@ -50,7 +50,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Core/Src/dht11.c
     Core/Src/ec11.c
-    Core/Src/my_spi1.c
+    Core/Src/load_image.c
     Core/Src/st7735s.c
     Core/Src/process_command.c
     Core/Src/process_key.c

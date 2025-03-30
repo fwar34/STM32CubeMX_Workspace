@@ -8,7 +8,7 @@
 #ifndef INC_PROTOCOL_H_
 #define INC_PROTOCOL_H_
 
-#include "protocol_error.h"
+#include "error_define.h"
 #include "circle_buffer.h"
 #include "receive_buffer.h"
 #include <inttypes.h>
