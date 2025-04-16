@@ -62,6 +62,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/spinlock.c
     Core/Src/timer3.c
     Core/Src/w25q64.c
+    Core/Src/simple_storage.c
 )
 
 # Add include paths
