@@ -5,13 +5,21 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define PAGE_ALIGN_NUM 0x100U
+
 #define UINT32_BIT_NUM sizeof(uint32_t)
 // 32768 / 32 + 1 = 1025
-#define PAGE_BITMAP_ARRAY_LEN (PAGE_MAX_COUNT / 32 + 1)
+// #define PAGE_BITMAP_ARRAY_LEN (PAGE_MAX_COUNT / UINT32_BIT_NUM + 1)
+
+// 32768 / 32 = 1024
+#define PAGE_BITMAP_ARRAY_LEN (PAGE_MAX_COUNT / UINT32_BIT_NUM)
 // 1025 * 4 = 4100
 #define BITMAP_ARRAY_BYTE_LEN (PAGE_BITMAP_ARRAY_LEN * sizeof(uint32_t))
 // 4100 / 256 = 16
-#define BITMAP_ARRAY_USE_PAGE_SIZE (BITMAP_ARRAY_BYTE_LEN / PAGE_MAX_SIZE)
+#define BITMAP_ARRAY_USE_PAGE_SIZE                                             \
+    ((BITMAP_ARRAY_BYTE_LEN % PAGE_MAX_SIZE) == 0                              \
+         ? ((BITMAP_ARRAY_BYTE_LEN) & (~PAGE_ALIGN_NUM))                       \
+         : ((BITMAP_ARRAY_BYTE_LEN) & (~PAGE_ALIGN_NUM)) + 1)
 #define BITMAP_ARRAY_USE_PAGE_START_ADDRESS 0U
 #define MAX_STORAGE_COUNT 128U
 #define MAX_PATH_LENGTH 16U
@@ -125,6 +133,16 @@ int32_t Delete(const char *path)
     }
 
     memset(g_stroageBlockInfo[storageId].path, 0, MAX_PATH_LENGTH);
+    return STORAGE_ERROR_OK;
 }
+
+void SyncPageBitMap()
+{
+
+    uint32_t beginAddress = 0;
+    for (uint16_t i = 0; i < BITMAP_ARRAY_BYTE_LEN)
+}
+
+void SyncStorageBlockInfo() {}
 
 int32_t SaveData(const uint8_t *data, uint32_t dataLen) { return 0; }

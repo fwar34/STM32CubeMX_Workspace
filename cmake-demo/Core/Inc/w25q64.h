@@ -15,9 +15,9 @@
 
 #define BLOCK_MAX_COUNT 128U
 // 128 * 16 = 2048
-#define SECTOR_MAX_COUNT BLOCK_MAX_COUNT * 16
+#define SECTOR_MAX_COUNT BLOCK_MAX_COUNT * (64 / 4)
 // 2048 * 16 = 32768
-#define PAGE_MAX_COUNT SECTOR_MAX_COUNT * 16
+#define PAGE_MAX_COUNT SECTOR_MAX_COUNT * (4096 / 256)
 #define PAGE_MAX_SIZE 256U
 
 #define W25Q64_START()                                                         \
